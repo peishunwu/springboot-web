@@ -1,0 +1,62 @@
+log:
+  dir: /home/qa/idata-audit-web/logs/
+
+
+spring:
+  # 配置数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.50.162.178:28925/idata-audit?zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
+    username: admin
+    password: yCRTqH3zOMPRm9clijr5
+    type: com.alibaba.druid.pool.DruidDataSource
+####
+  kafka:
+    bootstrap-servers: 10.50.162.207:9092
+    consumer:
+      bootstrap-servers: 10.50.162.207:9092
+      group-id: weili-dev
+      enable-auto-commit: false
+      concurrent: 3
+      max-poll-interval: 300000
+      max-poll-records: 200
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    topic:
+      delivery-history: delivery-history-dev
+  data:
+      mongodb:
+        host: 10.50.162.87
+        port: 27017
+
+###redis
+  redis:
+    database: 1
+    hostName: 127.0.0.1
+#    password: XVF6n9xB5L5uN7WxWOTW
+    port: 6379
+    timeout: 6000
+
+  redis-category:
+    database: 8
+    hostName: 10.50.162.243
+    password: XVF6n9xB5L5uN7WxWOTW
+    port: 6379
+
+mybatis:
+    type-aliases-package: cn.people.audit.web.core.entity
+    mapper-locations: classpath*:mapper/*.xml
+    configuration:
+        map-underscore-to-camel-case: true
+        default-fetch-size: 100
+        default-statement-timeout: 30
+
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+# 是否开启swagger
+mconfig:
+  swagger-ui-open: true
